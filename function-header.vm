@@ -4,17 +4,20 @@
 #set($DESCRIPTION = $DESCRIPTION.replace('get_', 'Returns '))
 #set($DESCRIPTION = $DESCRIPTION.replace('set_', 'Sets '))
 #set($DESCRIPTION = $DESCRIPTION.replace('test_', 'Testing '))
+#set($DESCRIPTION = $DESCRIPTION.replace('_before', 'Before tests'))
+#set($DESCRIPTION = $DESCRIPTION.replace('_after', 'After tests'))
 #set($DESCRIPTION = $DESCRIPTION.replace('_', ' '))
+#set($DESCRIPTION = $DESCRIPTION.trim())
 #set($DESCRIPTION = $DESCRIPTION.substring(0, 1).toUpperCase() + $DESCRIPTION.substring(1))
 
 /**
 ${DESCRIPTION}.
-#if (${PARAM_DOC}) * 
-#end
+* 
 ${PARAM_DOC}
-#if (${PARAM_DOC}) * 
+#if ($PARAM_DOC.trim() != '') * 
 #end
 * @return ${TYPE_HINT}
 #parse("PHP author")
 ${THROWS_DOC}
 */
+
