@@ -4,7 +4,7 @@ $env = $argv[1] ?? 'vagrant';
 
 class StringToClassNameTransformer
 {
-    const TRANSFORMED_SUFFIX = 'fullModules.';
+    const TRANSFORMED_SUFFIX = 'fullModules.v2.';
 
     private $confDir;
     private $aModules = [];
@@ -16,7 +16,7 @@ class StringToClassNameTransformer
      */
     public function __construct(string $env)
     {
-        $this->confDir = dirname(__FILE__) . '/dev/config/' . $env . '/modules/';
+        $this->confDir = dirname(__FILE__, 2) . '/dev/config/' . $env . '/modules/';
     }
 
     /**
@@ -64,8 +64,9 @@ class StringToClassNameTransformer
     private function wrapInArray(array $modules)
     {
         $result = "<?php\n";
-        $result .= "/*\n * Module Chain\n */\n\n";
-        $result .= "\$this->aModules = [\n";
+        $result .= "/*\n * Module Chain\n";
+        $result .= " * Version 2\n */\n\n";
+        $result .= "\$this->aModules = array_map(function (\$a) {\n    return implode('&', \$a);\n}, [\n";
 
         foreach ($modules as $mainModule => $extends) {
             $result .= "    {$this->getModuleCass($mainModule)} => [\n";
@@ -81,7 +82,7 @@ class StringToClassNameTransformer
             $result .= "    ],\n";
         }
 
-        return $result . "];\n";
+        return $result . "]);\n";
     }
 
     /**
