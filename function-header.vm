@@ -3,7 +3,8 @@
 #set($DESCRIPTION = $NAME.replaceAll($regex, $replacement).toLowerCase())
 #set($DESCRIPTION = $DESCRIPTION.replace('get_', 'Returns '))
 #set($DESCRIPTION = $DESCRIPTION.replace('set_', 'Sets '))
-#set($DESCRIPTION = $DESCRIPTION.replace('test_', 'Testing '))
+#set($DESCRIPTION = $DESCRIPTION.replace('assert_', 'Asserts if '))
+#set($DESCRIPTION = $DESCRIPTION.replace('test_', 'Testing if '))
 #set($DESCRIPTION = $DESCRIPTION.replace('_before', 'Before tests'))
 #set($DESCRIPTION = $DESCRIPTION.replace('_after', 'After tests'))
 #set($DESCRIPTION = $DESCRIPTION.replace('_', ' '))
@@ -17,7 +18,6 @@ ${PARAM_DOC}
 #if ($PARAM_DOC.trim() != '') * 
 #end
 * @return ${TYPE_HINT}
-#parse("PHP author")
 ${THROWS_DOC}
+#parse("PHP author")
 */
-
